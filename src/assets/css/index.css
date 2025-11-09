@@ -1,2 +1,10 @@
-@import "./color.css";
 @import "tailwindcss";
+@import "./color.css";
+
+button {
+  cursor: pointer;
+}
+*:not(input) {
+  caret-color: transparent;
+}
+

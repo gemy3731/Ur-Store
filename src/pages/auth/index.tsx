@@ -1,9 +1,16 @@
+import { ThemeToggle } from "../../components";
+import AuthForm from "../../components/auth/AuthForm";
 
 
 const Login = () => {
   return (
-    <div>Login Page</div>
-  )
-}
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+        <AuthForm/>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
