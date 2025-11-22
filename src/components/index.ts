@@ -1,3 +1,3 @@
 export {default as ThemeToggle} from './ThemeToggle'
-export {Loader,Button} from './ui'
+export {Loader,Button,Input} from './ui'
 export {AuthForm} from './auth'

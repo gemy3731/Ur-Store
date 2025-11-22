@@ -4,10 +4,11 @@ export interface AuthStateI {
     loading: boolean;
 }
 export interface UserInfoI {
-    id: string,
-    fullName: string,
+    id?: string,
+    fullname: string,
     username: string,
-    role: string,
+    phone: string,
+    role: "customer" | "vendor",
     bio: string,
     address: string
 }

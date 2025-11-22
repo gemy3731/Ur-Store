@@ -5,13 +5,12 @@ import { supabase } from "../../utils";
 import { authTypes } from "../../types";
 import { useNavigate } from "react-router";
 
-
 interface ProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const AuthProvider = ({ children }: ProviderProps) => {
-  const [state, dispatch] = useReducer(authReducer, InitialAuthState)
+  const [state, dispatch] = useReducer(authReducer, InitialAuthState);
   const navigate = useNavigate();
   const fetchProfile = async (userId: string) => {
     try {
@@ -28,13 +27,46 @@ const AuthProvider = ({ children }: ProviderProps) => {
     }
   };
 
+  const setProfile = async (profileInfo: authTypes.UserInfoI) => {
+    dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
+    try {
+      const { data: { session }} = await supabase.auth.getSession();
+
+      if(!session?.user) throw new Error("User not found");
+      
+      const { data, error } = await supabase
+        .from("profiles")
+        .insert({ ...profileInfo, id: session?.user.id })
+        .select()
+        .single();
+      if (error) throw error;
+      dispatch({
+        type: authTypes.ActionType.SetUser,
+        payload: { isAuth: true, user: data },
+      });
+    } catch (error) {
+      console.error("Error set profile:", error);
+      throw error;
+    } finally {
+      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
+    }
+  };
+
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_, session) => {
-      console.log("session", session)
-      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: !!session } });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_, session) => {
+      console.log("session", session);
+      dispatch({
+        type: authTypes.ActionType.SetUser,
+        payload: { isAuth: !!session },
+      });
       if (session?.user) {
         const profileData = await fetchProfile(session.user.id);
-        dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
+        dispatch({
+          type: authTypes.ActionType.SetUser,
+          payload: { isAuth: true, user: profileData },
+        });
       } else {
         dispatch({ type: authTypes.ActionType.SetUser, payload: null });
       }
@@ -43,25 +75,31 @@ const AuthProvider = ({ children }: ProviderProps) => {
     });
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: !!session } });
+      dispatch({
+        type: authTypes.ActionType.SetUser,
+        payload: { isAuth: !!session },
+      });
 
       if (session?.user) {
         const profileData = await fetchProfile(session.user.id);
-        dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
+        dispatch({
+          type: authTypes.ActionType.SetUser,
+          payload: { isAuth: true, user: profileData },
+        });
       }
 
       dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     });
 
     return () => subscription.unsubscribe();
-  }, [])
+  }, []);
 
   const signIn = async (email: string, password: string) => {
     dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
     try {
       const { error, data } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       });
 
       if (error) throw new Error(error.message);
@@ -71,7 +109,7 @@ const AuthProvider = ({ children }: ProviderProps) => {
 
         dispatch({
           type: authTypes.ActionType.SetUser,
-          payload: { isAuth: true, user: profileData }
+          payload: { isAuth: true, user: profileData },
         });
 
         navigate("/callback");
@@ -79,7 +117,9 @@ const AuthProvider = ({ children }: ProviderProps) => {
 
       return { error: null };
     } catch (error) {
-      return { error: error instanceof Error ? error : new Error(String(error)) };
+      return {
+        error: error instanceof Error ? error : new Error(String(error)),
+      };
     } finally {
       dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     }
@@ -99,7 +139,9 @@ const AuthProvider = ({ children }: ProviderProps) => {
       navigate("/callback");
       return { error: null };
     } catch (error) {
-      return { error: error instanceof Error ? error : new Error(String(error)) }
+      return {
+        error: error instanceof Error ? error : new Error(String(error)),
+      };
     } finally {
       dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     }
@@ -119,13 +161,28 @@ const AuthProvider = ({ children }: ProviderProps) => {
   };
   const refreshProfile = async () => {
     if (state.user) {
-      const profileData = await fetchProfile(state.user.id);
-      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
+      const profileData = await fetchProfile(state.user.id!);
+      dispatch({
+        type: authTypes.ActionType.SetUser,
+        payload: { isAuth: true, user: profileData },
+      });
     }
   };
   return (
-    <AuthContext.Provider value={{ state, dispatch, signIn, signUp, signOut, refreshProfile }} >{children}</AuthContext.Provider>
-  )
-}
+    <AuthContext.Provider
+      value={{
+        state,
+        dispatch,
+        signIn,
+        signUp,
+        signOut,
+        refreshProfile,
+        setProfile,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 export default AuthProvider;

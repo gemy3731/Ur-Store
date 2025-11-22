@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import { Home, Auth, Callback, ProfileSetup } from "./pages"
 import { AuthProvider, ThemeProvider } from "./providers"
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/*" element={<Home />} />
           </Routes>
         </AuthProvider>
+        <Toaster />
       </ThemeProvider>
     </BrowserRouter>
   )

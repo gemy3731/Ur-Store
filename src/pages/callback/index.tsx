@@ -11,7 +11,11 @@ const Callback = () => {
     if (!state.user) {
       navigate("/profile-setup");
     }else{
-      navigate("/");
+      if(state.user.role === "customer"){
+        navigate("/");
+      }else{
+        navigate("/dashboard");
+      }
     }
     // eslint-disable-next-line
   },[])

@@ -14,6 +14,7 @@ export interface AuthContextValue {
     signIn: (email: string, password: string) => Promise<{ error: Error|null}>;
     signUp: (email: string, password: string) => Promise<{ error: Error|null}>;
     signOut: () => Promise<void>;
+    setProfile: (profileInfo: authTypes.UserInfoI) => Promise<void>;
     refreshProfile: () => Promise<void>;
   }
 export const AuthContext = createContext<AuthContextValue>(
@@ -27,6 +28,8 @@ export const AuthContext = createContext<AuthContextValue>(
         signUp: async () => ({ error: null }),
       
         signOut: async () => {},
+
+        setProfile: async () => {},
       
         refreshProfile: async () => {},
 

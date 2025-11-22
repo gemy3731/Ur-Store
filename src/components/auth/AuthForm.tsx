@@ -59,7 +59,7 @@ const AuthForm = () => {
                 <div className="mt-6 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     <form onSubmit={formik.handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <label htmlFor={isLogin ? "loginEmail" : "registerEmail"} className="block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
+                            <label htmlFor={isLogin ? "loginEmail" : "registerEmail"} className="block text-sm font-medium leading-none">Email</label>
                             <input 
                                 type="email"
                                 name="email" 
@@ -71,7 +71,7 @@ const AuthForm = () => {
                                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
                         </div>
                         <div className="space-y-2">
-                            <label htmlFor={isLogin ? "loginPassword" : "registerPassword"} className="block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Password</label>
+                            <label htmlFor={isLogin ? "loginPassword" : "registerPassword"} className="block text-sm font-medium leading-none">Password</label>
                             <input 
                                 type="password"
                                 name="password"
