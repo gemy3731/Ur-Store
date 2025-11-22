@@ -14,27 +14,27 @@ const AuthProvider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(authReducer, InitialAuthState)
   const navigate = useNavigate();
   const fetchProfile = async (userId: string) => {
-    try{
+    try {
       const { data, error } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .maybeSingle();
-      if(error) throw error;
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .maybeSingle();
+      if (error) throw error;
       return data;
-    }catch(error){
+    } catch (error) {
       console.error("Error fetching profile:", error);
       return null;
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_, session) => {
-      dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: !!session} });
-
+      console.log("session", session)
+      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: !!session } });
       if (session?.user) {
         const profileData = await fetchProfile(session.user.id);
-        dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: true, user: profileData} });
+        dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
       } else {
         dispatch({ type: authTypes.ActionType.SetUser, payload: null });
       }
@@ -43,45 +43,84 @@ const AuthProvider = ({ children }: ProviderProps) => {
     });
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: !!session}});
+      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: !!session } });
 
       if (session?.user) {
         const profileData = await fetchProfile(session.user.id);
-        dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: true, user: profileData} });
+        dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
       }
 
       dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     });
 
     return () => subscription.unsubscribe();
-  },[])
+  }, [])
 
   const signIn = async (email: string, password: string) => {
-    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
-    if (!error && data.session) {
-      const profileData = await fetchProfile(data.user.id);
-      dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: true, user: profileData} });
+    dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
+    try {
+      const { error, data } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw new Error(error.message);
+
+      if (data.session) {
+        const profileData = await fetchProfile(data.user.id);
+
+        dispatch({
+          type: authTypes.ActionType.SetUser,
+          payload: { isAuth: true, user: profileData }
+        });
+
+        navigate("/callback");
+      }
+
+      return { error: null };
+    } catch (error) {
+      return { error: error instanceof Error ? error : new Error(String(error)) };
+    } finally {
+      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     }
-    return { error };
   };
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/profile-setup`;
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: redirectUrl },
-    });
-    return { error };
+    dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
+
+    try {
+      // const redirectUrl = `${window.location.origin}/profile-setup`;
+
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        // options: { emailRedirectTo: redirectUrl },
+      });
+      if (error) throw new Error(error.message);
+      navigate("/callback");
+      return { error: null };
+    } catch (error) {
+      return { error: error instanceof Error ? error : new Error(String(error)) }
+    } finally {
+      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
+    }
   };
   const signOut = async () => {
-    await supabase.auth.signOut();
-    dispatch({ type: authTypes.ActionType.ResetAuth });
-    navigate("/auth");
+    dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
+
+    try {
+      await supabase.auth.signOut();
+      dispatch({ type: authTypes.ActionType.ResetAuth });
+      navigate("/auth");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    } finally {
+      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
+    }
   };
   const refreshProfile = async () => {
     if (state.user) {
       const profileData = await fetchProfile(state.user.id);
-      dispatch({ type: authTypes.ActionType.SetUser, payload: {isAuth: true, user: profileData} });
+      dispatch({ type: authTypes.ActionType.SetUser, payload: { isAuth: true, user: profileData } });
     }
   };
   return (
