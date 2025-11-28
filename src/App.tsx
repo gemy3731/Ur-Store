@@ -2,14 +2,18 @@ import { BrowserRouter, Route, Routes } from "react-router"
 import { Home, Auth, Callback, ProfileSetup } from "./pages"
 import { AuthProvider, ThemeProvider } from "./providers"
 import { Toaster } from "react-hot-toast";
+import { CustomerContainer } from "./containers/customerContainer/CustomerContainer";
+import { Navbar } from "./components";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <AuthProvider>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path='/customer/*' element={<CustomerContainer />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/profile-setup" element={<ProfileSetup />} />

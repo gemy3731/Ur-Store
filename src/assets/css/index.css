@@ -63,3 +63,8 @@ button {
     transform: rotate(360deg);
   }
 }
+
+.active{
+  background-color: var(--color-primary);
+  color: white;
+}

@@ -1,3 +1,4 @@
 export {default as ThemeToggle} from './ThemeToggle'
 export {Loader,Button,Input} from './ui'
 export {AuthForm} from './auth'
+export {Navbar} from './shared'

@@ -1,8 +1,9 @@
+import HomeCollection from "../../components/home"
 
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div><HomeCollection /></div>
   )
 }
 
