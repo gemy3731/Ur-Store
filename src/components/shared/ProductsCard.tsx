@@ -1,7 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 import type { Product } from "../../types";
 
-
 const ProductsCard = ({ product }: { product: Product }) => {
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-lg transition-all group">

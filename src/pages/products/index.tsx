@@ -1,9 +1,12 @@
+import ProductsCollection from "../../components/products";
+
 
 
 const Products = () => {
+ 
   return (
-    <div>Products</div>
-  )
-}
+    <ProductsCollection />
+  );
+};
 
-export default Products
+export default Products;

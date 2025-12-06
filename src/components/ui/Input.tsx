@@ -1,26 +1,48 @@
-
+import  {type LucideIcon } from "lucide-react";
 
 interface Props {
-    type: string;
-    id: string;
-    placeholder?: string;
-    className?: string;
-    value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-
+  type: string;
+  id: string;
+  placeholder?: string;
+  className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
+  Icon?: LucideIcon;
 }
-const Input = ({type,id,placeholder,className,value,onChange,onBlur}:Props) => {
+const Input = ({
+  type,
+  id,
+  placeholder,
+  className,
+  value,
+  onChange,
+  onBlur,
+  name,
+  Icon,
+}: Props) => {
   return (
-    <input
-      type={type}
-      id={id}
-      placeholder={placeholder}
-      className={"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" + " " + className}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-    />
+    <div className="relative">
+      {Icon && <Icon
+      size={16}
+      className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
+    />}
+      <input
+        type={type}
+        id={id}
+        name={name || ""}
+        placeholder={placeholder}
+        className={
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" +
+          " " + (Icon ? "pl-9" : "") +" "+
+          className
+        }
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    </div>
   );
 };
 
