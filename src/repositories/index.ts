@@ -1,0 +1,1 @@
+export {getProductsRepo, createProductRepo, updateProductRepo, deleteProductRepo} from './productsRepository'

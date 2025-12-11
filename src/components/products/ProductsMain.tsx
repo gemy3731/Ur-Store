@@ -7,6 +7,7 @@ interface ProductsMainProps {
     searchedProducts: Product[] | null;
 }
 const ProductsMain = ({ products,searchedProducts }: ProductsMainProps) => {
+  console.log(products);
   return (
     <>
       {products.length === 0 ? (

@@ -2,42 +2,13 @@ import { useEffect, useState } from "react";
 import FilterSection from "./FilterSection";
 import ProductsMain from "./ProductsMain";
 import type { Product } from "../../types";
-import { useDebounce } from "../../hooks";
+import { useDebounce, useProducts } from "../../hooks";
 
-const products: Product[] = [
-  {
-    id: "1",
-    title: "car",
-    description: "Description for Product 1",
-    price: 19.99,
-    brand: "Nike",
-    category: "Fashions",
-    image:
-      "https://nqblbbkuwgirjcmcmckj.supabase.co/storage/v1/object/public/blog_images/1793a561-e4c9-4dda-8945-b64e338458f4",
-  },
-  {
-    id: "2",
-    title: "t-shirt",
-    description: "Description for Product 2",
-    price: 29.99,
-    brand: "Nike",
-    category: "Electronics",
-    image:
-      "https://nqblbbkuwgirjcmcmckj.supabase.co/storage/v1/object/public/blog_images/1793a561-e4c9-4dda-8945-b64e338458f4",
-  },
-  {
-    id: "3",
-    title: "carateh",
-    description:
-      "Ultimately, continuous improvement is a long-term commitment rather than a temporary initiative. It requires discipline, patience, and strategic effort. Through consistent practice, individuals and teams can achieve higher performance levels, increased adaptability, and meaningful personal and professional growth in a dynamic and competitive world.",
-    price: 39.99,
-    brand: "Electronics",
-    category: "Adidas",
-    image:
-      "https://nqblbbkuwgirjcmcmckj.supabase.co/storage/v1/object/public/blog_images/1793a561-e4c9-4dda-8945-b64e338458f4",
-  },
-];
+
 const ProductsCollection = () => {
+  const products = useProducts();
+  console.log(products)
+
   const [productsState, setProductsState] = useState<Product[]>(products);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedBrand, setSelectedBrand] = useState<string>("");
@@ -66,7 +37,7 @@ const ProductsCollection = () => {
     } else {
       setProductsState(products);
     }
-  }, [selectedCategory, selectedBrand]);
+  }, [selectedCategory, selectedBrand, products]);
   useEffect(() => {
     if (debouncedSearch !== "") {
       setSearchedProducts(
@@ -77,7 +48,11 @@ const ProductsCollection = () => {
     } else {
       setSearchedProducts(null);
     }
-  }, [debouncedSearch]);
+  }, [debouncedSearch, products]);
+
+  useEffect(() => {
+    setProductsState(products);
+  },[products]);
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
