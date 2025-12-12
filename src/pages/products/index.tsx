@@ -1,4 +1,5 @@
-import ProductsCollection from "../../components/products";
+import { ProductsCollection } from "../../components";
+
 
 
 
