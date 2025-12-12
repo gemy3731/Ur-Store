@@ -12,7 +12,10 @@ const ProductsCard = ({ product }: { product: Product }) => {
         />
       </div>
       <div className="flex flex-col space-y-1.5 p-6">
+        <div className="flex justify-between items-center gap-2">
         <h3 className="font-semibold text-lg line-clamp-1">{product.title}</h3>
+        {product.stock == 0 &&<span className="text-sm text-destructive rounded-md  px-2 py-1">Out of stock</span>}
+        </div>
         <p className="text-muted-foreground text-sm line-clamp-1">
           {product.description}
         </p>
