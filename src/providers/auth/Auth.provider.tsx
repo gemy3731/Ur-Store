@@ -1,3 +1,4 @@
+// /providers/auth/Auth.provider.tsx
 import { useEffect, useReducer } from "react";
 import { AuthContext, InitialAuthState } from "../../context";
 import authReducer from "./authReducer";
@@ -30,10 +31,12 @@ const AuthProvider = ({ children }: ProviderProps) => {
   const setProfile = async (profileInfo: authTypes.UserInfoI) => {
     dispatch({ type: authTypes.ActionType.SetLoading, payload: true });
     try {
-      const { data: { session }} = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      if(!session?.user) throw new Error("User not found");
-      
+      if (!session?.user) throw new Error("User not found");
+
       const { data, error } = await supabase
         .from("profiles")
         .insert({ ...profileInfo, id: session?.user.id })
@@ -53,42 +56,57 @@ const AuthProvider = ({ children }: ProviderProps) => {
   };
 
   useEffect(() => {
+    const initializeAuth = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (session?.user) {
+          const profileData = await fetchProfile(session.user.id);
+          dispatch({
+            type: authTypes.ActionType.SetUser,
+            payload: { isAuth: true, user: profileData },
+          });
+        } else {
+          dispatch({
+            type: authTypes.ActionType.SetUser,
+            payload: { isAuth: false, user: null },
+          });
+        }
+      } catch (error) {
+        console.error("Error initializing auth:", error);
+        dispatch({
+          type: authTypes.ActionType.SetUser,
+          payload: { isAuth: false, user: null },
+        });
+      } finally {
+        dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
+      }
+    };
+
+    initializeAuth();
+
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_, session) => {
-      console.log("session", session);
-      dispatch({
-        type: authTypes.ActionType.SetUser,
-        payload: { isAuth: !!session },
-      });
-      if (session?.user) {
-        const profileData = await fetchProfile(session.user.id);
-        dispatch({
-          type: authTypes.ActionType.SetUser,
-          payload: { isAuth: true, user: profileData },
-        });
-      } else {
-        dispatch({ type: authTypes.ActionType.SetUser, payload: null });
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth event:", event, "session:", session);
+      if (event === "SIGNED_IN") {
+        console.log(" ");
+      } else if (event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") {
+        if (session?.user) {
+          const profileData = await fetchProfile(session.user.id);
+          dispatch({
+            type: authTypes.ActionType.SetUser,
+            payload: { isAuth: true, user: profileData },
+          });
+        } else {
+          dispatch({
+            type: authTypes.ActionType.SetUser,
+            payload: { isAuth: false, user: null },
+          });
+        }
       }
-
-      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
-    });
-
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      dispatch({
-        type: authTypes.ActionType.SetUser,
-        payload: { isAuth: !!session },
-      });
-
-      if (session?.user) {
-        const profileData = await fetchProfile(session.user.id);
-        dispatch({
-          type: authTypes.ActionType.SetUser,
-          payload: { isAuth: true, user: profileData },
-        });
-      }
-
-      dispatch({ type: authTypes.ActionType.SetLoading, payload: false });
     });
 
     return () => subscription.unsubscribe();

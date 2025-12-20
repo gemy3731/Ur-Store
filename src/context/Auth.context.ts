@@ -1,3 +1,4 @@
+// /context/Auth.context.ts
 import React, { createContext, useContext } from "react";
 import type { authTypes } from "../types";
 import type { AuthReducerAction, AuthStateI } from "../types/auth.types";

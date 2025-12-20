@@ -3,7 +3,10 @@ import type { Product } from "../../types";
 
   
   export async function getAllProducts() {
+    console.log("getAllProducts");
     const { data, error } = await getProductsRepo();
+    console.log("data", data);
+    console.log("error", error);
     if (error) throw new Error("Cannot fetch products");
     return data;
   }

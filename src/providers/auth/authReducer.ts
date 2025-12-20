@@ -1,3 +1,4 @@
+// /providers/auth/aithReducer.ts
 import { authTypes } from "../../types";
 
 export default function authReducer(

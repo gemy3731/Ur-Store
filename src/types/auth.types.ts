@@ -20,7 +20,7 @@ export enum ActionType {
 
 }
 export type AuthReducerAction =
-| { type: ActionType.SetUser; payload: {isAuth: boolean, user?: UserInfoI} | null }
+| { type: ActionType.SetUser; payload: {isAuth: boolean, user?: UserInfoI | null} | null }
 | { type: ActionType.SetLoading; payload: boolean }
 | { type: ActionType.ResetAuth };
 
