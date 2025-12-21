@@ -17,3 +17,7 @@ export async function updateProductRepo(id:string, data:object) {
 export async function deleteProductRepo(id:string) {
   return await supabase.from("products").delete().eq("id", id);
 }
+
+export async function getProductRepoById(id:string) {
+  return await supabase.from("products").select("*").eq("id", id).single();
+}

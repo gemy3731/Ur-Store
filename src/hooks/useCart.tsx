@@ -25,9 +25,7 @@ export function useCart() {
   }, [state.user?.id]);
 
   const addItem = async (productId:string, qty = 1) => {
-    console.log("first")
     if (!cart) return;
-    console.log("second")
     await addToCart(state.user?.id as string, productId, qty);
     const updated = await getCartItems(cart.id);
     setItems(updated);

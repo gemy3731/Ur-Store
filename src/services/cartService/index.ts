@@ -41,6 +41,7 @@ export async function addToCart(userId:string, productId:string, quantity = 1) {
   
   export async function getCartItems(cartId: string) {
     const { data, error } = await getCartItemsRepo(cartId);
+    console.log("data", data);
     if (error) throw error;
     return data;
   }

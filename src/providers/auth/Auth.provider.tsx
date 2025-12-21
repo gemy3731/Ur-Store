@@ -90,7 +90,7 @@ const AuthProvider = ({ children }: ProviderProps) => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth event:", event, "session:", session);
+      console.log("Auth event:", event);
       if (event === "SIGNED_IN") {
         console.log(" ");
       } else if (event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") {
