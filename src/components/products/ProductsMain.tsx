@@ -1,6 +1,7 @@
 import { Package } from "lucide-react";
 import type { Product } from "../../types";
-import ProductsCard from "../shared/ProductsCard";
+import { ProductsCard } from "../shared";
+
 
 interface ProductsMainProps {
     products: Product[];

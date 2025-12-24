@@ -1,6 +1,7 @@
 export {default as ThemeToggle} from './ThemeToggle'
 export {Loader,Button,Input} from './ui'
 export {AuthForm} from './auth'
-export {Navbar} from './shared'
+export {ProductsCard} from './shared'
 export {default as ProductsCollection} from './products'
 export {default as CartCollection} from './cart'
+export {Navbar,UserMenu} from './navbar'

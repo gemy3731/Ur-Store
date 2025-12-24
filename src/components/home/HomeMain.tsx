@@ -1,6 +1,6 @@
 import { Package } from "lucide-react";
-import ProductsCard from "../shared/ProductsCard";
 import { useProducts } from "../../hooks";
+import { ProductsCard } from "../shared";
 
 
 const HomeMain = () => {

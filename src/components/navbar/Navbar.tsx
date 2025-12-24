@@ -1,9 +1,12 @@
-import { ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { ShoppingBag, ShoppingCart } from "lucide-react";
 import ThemeToggle from "../ThemeToggle";
 import { NavLink, useLocation } from "react-router";
+import UserMenu from "./UserMenu";
+import { useAuth } from "../../context/Auth.context";
 
 const Navbar = () => {
   const location = useLocation();
+  const {state,signOut} = useAuth();
   if (
     location.pathname.startsWith("/auth") ||
     location.pathname.startsWith("/callback") ||
@@ -11,6 +14,7 @@ const Navbar = () => {
   ) {
     return null;
   }
+  
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -47,12 +51,7 @@ const Navbar = () => {
           <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full">
             <ThemeToggle />
           </div>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  hover:bg-accent hover:text-accent-foreground h-10 w-10"
-          >
-            <User size={24} />
-          </button>
+          <UserMenu state={state} signOut={signOut} />
         </div>
       </div>
     </nav>

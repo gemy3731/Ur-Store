@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { CustomerContainer } from "./containers/customerContainer/CustomerContainer";
 import { Navbar } from "./components";
 
+
 function App() {
   return (
     <BrowserRouter>
