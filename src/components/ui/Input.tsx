@@ -10,6 +10,9 @@ interface Props {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
   Icon?: LucideIcon;
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
 }
 const Input = ({
   type,
@@ -21,6 +24,9 @@ const Input = ({
   onBlur,
   name,
   Icon,
+  disabled = false,
+  readonly = false,
+  required = false
 }: Props) => {
   return (
     <div className="relative">
@@ -41,6 +47,9 @@ const Input = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
+        readOnly={readonly}
+        required={required}
       />
     </div>
   );
