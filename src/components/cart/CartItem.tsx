@@ -5,9 +5,10 @@ import type { Product } from "../../types";
 interface CartItemProps {
   product: Product;
   quantity: number;
+  addItem: (productId: string, qty?: number) => Promise<void>;
 }
 
-const CartItem =  ({ product, quantity }: CartItemProps) => {
+const CartItem =  ({ product, quantity, addItem }: CartItemProps) => {
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm">
       <div className="p-6">
@@ -28,6 +29,8 @@ const CartItem =  ({ product, quantity }: CartItemProps) => {
               <div className="flex items-center flex-wrap gap-2">
                 <button
                   type="button"
+                  onClick={() => addItem( product.id!, -1)}
+                  disabled={quantity === 1}
                   className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
                 >
                   <Minus size={16} />
@@ -37,6 +40,8 @@ const CartItem =  ({ product, quantity }: CartItemProps) => {
                 </span>
                 <button
                   type="button"
+                  onClick={() => addItem( product.id!, 1)}
+                  disabled={quantity === product.stock}
                   className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
                 >
                   <Plus size={16} />

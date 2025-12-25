@@ -30,9 +30,10 @@ export async function addToCart(userId:string, productId:string, quantity = 1) {
     );
   
     if (existingItem) {
+      const newQuantity = Math.max(0,(existingItem.quantity + quantity) > existingItem?.products.stock ? existingItem?.products.stock : existingItem.quantity + quantity);
       await updateCartItemQtyRepo(
         existingItem.id,
-        existingItem.quantity + quantity
+        newQuantity
       );
     } else {
       await addCartItemRepo(cart.id, productId, quantity);

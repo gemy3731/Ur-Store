@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
 
 const CartCollection = () => {
-  const {items} = useCart();
+  const {items,addItem} = useCart();
   console.log("items");
   if (!items || items.length === 0) {
     return null;
@@ -20,6 +20,7 @@ const CartCollection = () => {
                 key={item.id}
                 product={item.products}
                 quantity={item.quantity}
+                addItem={addItem}
               />
             ))}
           </div>

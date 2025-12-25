@@ -5,7 +5,7 @@ import { supabase } from "../../utils";
 
 
 export async function getCartItemRepo(cart_id:string,productId:string):Promise<{data: CartItem | null,error:supabaseReturnedError}> {
-    return await supabase.from("cart_items").select("*").eq("cart_id", cart_id).eq("product_id", productId).maybeSingle();
+    return await supabase.from("cart_items").select("*,products(*)").eq("cart_id", cart_id).eq("product_id", productId).maybeSingle();
 }
 
 
