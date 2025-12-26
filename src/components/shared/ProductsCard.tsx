@@ -1,9 +1,12 @@
 import { ShoppingCart } from "lucide-react";
 import type { Product } from "../../types";
 import { useCart } from "../../hooks/useCart";
+import { useAuth } from "../../context/Auth.context";
 
 const ProductsCard = ({ product }: { product: Product }) => {
   const {addItem} = useCart();
+  const {state} = useAuth();
+  const isAuthorized = state.isAuth && state.user?.role === 'customer';
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-lg transition-all group">
       <div className="relative h-48 overflow-hidden bg-muted">
@@ -26,13 +29,13 @@ const ProductsCard = ({ product }: { product: Product }) => {
         <span className="text-2xl font-bold text-primary">
           ${product.price}
         </span>
-        <button
+        {isAuthorized&&<button
           type="button"
           onClick={() => addItem(product.id!)}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
         >
           <ShoppingCart size={24} /> Add to cart
-        </button>
+        </button>}
       </div>
     </div>
   );

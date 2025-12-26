@@ -1,0 +1,1 @@
+export {default as CustomerContainer} from './customerContainer/CustomerContainer';

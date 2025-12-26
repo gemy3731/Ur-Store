@@ -2,7 +2,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Cart, Checkout, Home, Products } from "../../pages";
 
-export const CustomerContainer = () => {
+ const CustomerContainer = () => {
   return (
     <Routes>
       <Route path="/products" element={<Products />}/>
@@ -12,3 +12,5 @@ export const CustomerContainer = () => {
     </Routes>
   );
 };
+
+export default CustomerContainer;
