@@ -39,7 +39,7 @@ const SelectButton = ({
     };
   }, [isOpen, id]);
   return (
-    <div id={id} className="relative">
+    <div id={id} className="relative text-muted-foreground">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

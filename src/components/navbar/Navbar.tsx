@@ -16,7 +16,7 @@ const Navbar = () => {
   }
   
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur text-foreground">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <a
           href="/"
@@ -30,13 +30,13 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <NavLink
             to="/"
-            className="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-black hover:bg-primary/90! hover:text-accent-foreground h-10 px-4 py-2 hidden sm:flex"
+            className="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-foreground hover:bg-primary/90! hover:text-accent-foreground h-10 px-4 py-2 hidden sm:flex"
           >
             <button type="button">Home</button>
           </NavLink>
           <NavLink
             to="/customer/products"
-            className="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-black hover:bg-primary/90! hover:text-accent-foreground h-10 px-4 py-2 hidden sm:flex"
+            className="items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-foreground hover:bg-primary/90! hover:text-accent-foreground h-10 px-4 py-2 hidden sm:flex"
           >
             <button type="button">Products</button>
           </NavLink>

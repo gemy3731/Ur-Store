@@ -56,7 +56,7 @@ const ProductsCollection = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Browse Products</h1>
+        <h1 className="text-4xl font-bold mb-8 text-foreground">Browse Products</h1>
         <FilterSection
           setSelectedCategory={setSelectedCategory}
           setSelectedBrand={setSelectedBrand}

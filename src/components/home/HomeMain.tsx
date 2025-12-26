@@ -8,7 +8,7 @@ const HomeMain = () => {
   return (
     <main className="py-16 px-4">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
+        <h2 className="text-3xl font-bold mb-8 text-foreground">Featured Products</h2>
         {products.length === 0 ? (
           <div className="text-center py-12">
             <Package className="text-muted-foreground mb-4 mx-auto" size={64} />
