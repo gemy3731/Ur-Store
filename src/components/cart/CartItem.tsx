@@ -6,9 +6,10 @@ interface CartItemProps {
   product: Product;
   quantity: number;
   addItem: (productId: string, qty?: number) => Promise<void>;
+  deleteItem: (cartItemId: string) => Promise<void>;
 }
 
-const CartItem =  ({ product, quantity, addItem }: CartItemProps) => {
+const CartItem =  ({ product, quantity, addItem,deleteItem }: CartItemProps) => {
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm">
       <div className="p-6">
@@ -49,6 +50,7 @@ const CartItem =  ({ product, quantity, addItem }: CartItemProps) => {
               </div>
               <button
                 type="button"
+                onClick={() => deleteItem(product.id!)}
                 className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 w-10"
               >
                 <Trash2 size={16} />

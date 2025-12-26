@@ -1,8 +1,9 @@
+import type { authTypes } from "../../types"
 import { Button, Input, Label, Textarea } from "../ui"
 
 
 
-const ShippingForm = () => {
+const ShippingForm = ({user}:{user:authTypes.UserInfoI|null}) => {
   return (
     <form className="space-y-4">
           <div className="space-y-2">
@@ -16,7 +17,7 @@ const ShippingForm = () => {
               id="name"
               name="name"
               disabled={true}
-              value="John Doe"
+              value={user?.fullname ? user.fullname : ""}
             />
           </div>
           <div className="space-y-2">
@@ -32,7 +33,7 @@ const ShippingForm = () => {
               rows={4}
               placeholder="Enter your complete shipping address"
             >
-              Cairo, Egypt
+              {user?.address ? user.address : ""}
             </Textarea>
           </div>
           <div className="space-y-2">
@@ -46,7 +47,7 @@ const ShippingForm = () => {
               id="phone"
               name="phone"
               disabled={true}
-              value="01204811102"
+              value={user?.phone ? user.phone : ""}
             />
           </div>
           <Button>Place Order</Button>

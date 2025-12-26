@@ -5,6 +5,7 @@ import {
   getCartItems,
   addToCart,
   updateCartStatus,
+  deleteCartItem,
 } from "../services/cartService";
 import type { Cart, CartItem } from "../types";
 import { useAuth } from "../context/Auth.context";
@@ -39,10 +40,18 @@ export function useCart() {
     setItems([]);
   };
 
+  const deleteItem = async (productId:string) => {
+    if (!cart) return;
+    await deleteCartItem(productId);
+    const updated = await getCartItems(cart.id);
+    setItems(updated);
+  };
+
   return {
     cart,
     items,
     addItem,
     updateStatus,
+    deleteItem,
   };
 }

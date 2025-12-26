@@ -4,8 +4,7 @@ import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
 
 const CartCollection = () => {
-  const {items,addItem} = useCart();
-  console.log("items");
+  const {items,addItem,deleteItem} = useCart();
   if (!items || items.length === 0) {
     return null;
   };
@@ -21,11 +20,12 @@ const CartCollection = () => {
                 product={item.products}
                 quantity={item.quantity}
                 addItem={addItem}
+                deleteItem={deleteItem}
               />
             ))}
           </div>
           <div>
-            <OrderSummary total={859} />
+            <OrderSummary items={items} />
           </div>
         </div>
       </div>

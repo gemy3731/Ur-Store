@@ -1,4 +1,4 @@
-import { addCartItemRepo, createCartRepo, getCartItemRepo, getCartItemsRepo, getCartRepo, updateCartItemQtyRepo, updateCartRepo } from "../../repositories";
+import { addCartItemRepo, createCartRepo, deleteCartItemsRepo, getCartItemRepo, getCartItemsRepo, getCartRepo, updateCartItemQtyRepo, updateCartRepo } from "../../repositories";
 
 export async function getOrCreateOpenCart(userId: string) {
   try {
@@ -49,4 +49,8 @@ export async function addToCart(userId:string, productId:string, quantity = 1) {
   
   export async function updateCartStatus(cartId: string, status: string) {
     await updateCartRepo(cartId, status);
+  }
+
+  export async function deleteCartItem(productId: string) {
+    await deleteCartItemsRepo(productId);
   }

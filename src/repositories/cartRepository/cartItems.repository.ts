@@ -22,6 +22,6 @@ export async function getCartItemsRepo(cartId:string):Promise<{data:CartItem[] |
     return await supabase.from("cart_items").select("*, products(*)").eq("cart_id", cartId);
   }
 
-export async function deleteCartItemsRepo(id:string):Promise<{error:supabaseReturnedError}> {
-    return await supabase.from("cart_items").delete().eq("id", id);
+export async function deleteCartItemsRepo(productId:string):Promise<{error:supabaseReturnedError}> {
+    return await supabase.from("cart_items").delete().eq("product_id", productId);
 }

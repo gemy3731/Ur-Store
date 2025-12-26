@@ -1,2 +1,2 @@
 export {getAllProducts, createProduct, updateProduct, deleteProduct, getProductById} from './productsService';
-export {getOrCreateOpenCart,addToCart,getCartItems,updateCartStatus} from './cartService';
+export {getOrCreateOpenCart,addToCart,getCartItems,updateCartStatus,deleteCartItem} from './cartService';
