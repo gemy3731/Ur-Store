@@ -14,7 +14,7 @@ const Callback = () => {
       if(state.user.role === "customer"){
         navigate("/");
       }else{
-        navigate("/dashboard");
+        navigate("/vendor/dashboard");
       }
     }
     // eslint-disable-next-line

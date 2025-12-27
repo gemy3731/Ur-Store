@@ -4,6 +4,7 @@ export {
   updateProductRepo,
   deleteProductRepo,
   getProductRepoById,
+  getProductsByVendorRepo,
 } from "./productsRepository";
 export {
   getCartRepo,

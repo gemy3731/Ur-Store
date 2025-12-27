@@ -27,7 +27,7 @@ const ProfileSetupForm = () => {
       if(values.role === "customer"){
         navigate("/");
       }else{
-        navigate("/dashboard");
+        navigate("/vendor/dashboard");
       }
     }catch{
       toast.error("Something went wrong, please try again");

@@ -1,4 +1,4 @@
-import { createProductRepo, deleteProductRepo, getProductRepoById, getProductsRepo, updateProductRepo } from "../../repositories";
+import { createProductRepo, deleteProductRepo, getProductRepoById, getProductsByVendorRepo, getProductsRepo, updateProductRepo } from "../../repositories";
 import type { Product } from "../../types";
 
   
@@ -32,5 +32,11 @@ import type { Product } from "../../types";
   export async function getProductById(id:string) {
     const { data, error } = await getProductRepoById(id);
     if (error) throw new Error("Cannot get product");
+    return data;
+  }
+  
+  export async function getProductsByVendor(vendorId:string) {
+    const { data, error } = await getProductsByVendorRepo(vendorId);
+    if (error) throw new Error("Cannot get products by vendor");
     return data;
   }

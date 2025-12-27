@@ -21,3 +21,7 @@ export async function deleteProductRepo(id:string) {
 export async function getProductRepoById(id:string) {
   return await supabase.from("products").select("*").eq("id", id).single();
 }
+
+export async function getProductsByVendorRepo(vendorId:string) {
+  return await supabase.from("products").select("*").eq("vendor_id", vendorId);
+}

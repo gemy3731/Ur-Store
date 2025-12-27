@@ -1,21 +1,9 @@
 import {  Search } from "lucide-react"
 import { Input } from "../ui"
 import SelectButton from "../ui/SelectButton"
+import { brands, categories } from "../../data";
 
-const categories = [
-  "Fashions",
-  "Electronics",
-  "Home & Garden",
-  "Health & Beauty",
-  "Toys & Games",
-  "Sports",]
-  const brands = [
-    "Nike",
-    "Adidas",
-    "Puma",
-    "Reebok",
-    "Under Armour",
-  ]
+
   interface FilterSectionProps {
     setSelectedCategory: (value: string) => void;
     setSelectedBrand: (value: string) => void;
