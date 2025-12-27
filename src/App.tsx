@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 import { Navbar } from "./components";
 import { CustomerProtector } from "./protections";
-import { CustomerContainer } from "./containers";
+import { CustomerContainer, VendorContainer } from "./containers";
 import SetupProtector from "./protections/SetupProtector";
 
 function App() {
@@ -16,24 +16,11 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/customer/*"
-              element={
-                <CustomerProtector>
-                  <CustomerContainer />
-                </CustomerProtector>
-              }
-            />
+            <Route path="/customer/*" element={ <CustomerProtector><CustomerContainer /></CustomerProtector>}/>
+            <Route path="/vendor/*" element={ <VendorContainer />}/>
             <Route path="/auth" element={<Auth />} />
             <Route path="/callback" element={<Callback />} />
-            <Route
-              path="/profile-setup"
-              element={
-                <SetupProtector>
-                  <ProfileSetup />
-                </SetupProtector>
-              }
-            />
+            <Route path="/profile-setup" element={<SetupProtector><ProfileSetup /></SetupProtector>}/>
             <Route path="/*" element={<Home />} />
           </Routes>
         </AuthProvider>

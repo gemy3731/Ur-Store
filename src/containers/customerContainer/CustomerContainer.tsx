@@ -1,5 +1,5 @@
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import { Cart, Checkout, Home, Products } from "../../pages";
 
  const CustomerContainer = () => {
