@@ -7,5 +7,6 @@ export interface Product {
     brand?: string;
     category: string;
     stock: number;
+    vendor_id?: string;
 }
 

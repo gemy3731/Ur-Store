@@ -5,6 +5,7 @@ export {
   deleteProductRepo,
   getProductRepoById,
   getProductsByVendorRepo,
+  uploadProductImageRepo,
 } from "./productsRepository";
 export {
   getCartRepo,

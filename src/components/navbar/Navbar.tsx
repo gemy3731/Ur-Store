@@ -3,7 +3,8 @@ import ThemeToggle from "../ThemeToggle";
 import { NavLink, useLocation } from "react-router";
 import UserMenu from "./UserMenu";
 import { useAuth } from "../../context/Auth.context";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../hooks";
+
 
 
 const Navbar = () => {

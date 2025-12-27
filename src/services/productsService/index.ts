@@ -1,4 +1,4 @@
-import { createProductRepo, deleteProductRepo, getProductRepoById, getProductsByVendorRepo, getProductsRepo, updateProductRepo } from "../../repositories";
+import { createProductRepo, deleteProductRepo, getProductRepoById, getProductsByVendorRepo, getProductsRepo, updateProductRepo, uploadProductImageRepo } from "../../repositories";
 import type { Product } from "../../types";
 
   
@@ -12,7 +12,8 @@ import type { Product } from "../../types";
   }
   
   export async function createProduct(product: Product) {
-    const { data, error } = await createProductRepo(product);
+    const imageUrl = await uploadProductImageRepo(product.image as unknown as File);
+    const { data, error } = await createProductRepo({...product, image: imageUrl });
     if (error) throw new Error("Cannot create product");
     return data;
   }

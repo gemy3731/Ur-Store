@@ -11,7 +11,7 @@ import type { Cart, CartItem } from "../types";
 import { useAuth } from "../context/Auth.context";
 import toast from "react-hot-toast";
 
-export function useCart() {
+ function useCart() {
   const [cart, setCart] = useState<Cart | null>(null);
   const [items, setItems] = useState<CartItem[] | null>([]);
   const {state} = useAuth();
@@ -55,3 +55,5 @@ export function useCart() {
     deleteItem,
   };
 }
+
+export default useCart;

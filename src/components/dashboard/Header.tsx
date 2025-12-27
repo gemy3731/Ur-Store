@@ -7,7 +7,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <header className="flex justify-between items-center mb-8">
-      <h1 className="text-4xl font-bold">Dashboard</h1>
+      <h1 className="text-4xl font-bold text-foreground">Dashboard</h1>
       <Button type="button" className="w-fit! px-8!" onClick={() => setIsModalOpen(true)}>
         <Plus className="h-5 w-5" size={20} /> Add Product
       </Button>

@@ -1,8 +1,8 @@
 import { ShoppingCart, SquarePen, Trash2 } from "lucide-react";
 import type { Product } from "../../types";
-import { useCart } from "../../hooks/useCart";
 import { useAuth } from "../../context/Auth.context";
 import { useLocation } from "react-router";
+import { useCart } from "../../hooks";
 
 const ProductsCard = ({ product }: { product: Product }) => {
   const { addItem } = useCart();
