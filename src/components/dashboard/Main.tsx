@@ -18,7 +18,7 @@ const Main = () => {
 
     const handleDeleteProduct = async (id: string) => {
         try {
-          console.log("Deleting product with id:", id);
+          // console.log("Deleting product with id:", id);
           await deleteProduct(id);
           // window.location.reload();
         } catch (error) {

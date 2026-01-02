@@ -11,7 +11,7 @@ const Header = () => {
       <Button type="button" className="w-fit! px-8!" onClick={() => setIsModalOpen(true)}>
         <Plus className="h-5 w-5" size={20} /> Add Product
       </Button>
-      {isModalOpen && <ProductModal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && <ProductModal setIsModalOpen={setIsModalOpen} mode="create" />}
     </header>
   );
 };

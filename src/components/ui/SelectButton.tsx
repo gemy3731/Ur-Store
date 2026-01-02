@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Props {
-  defaultValue: string;
+  defaultValue?: string;
   listItems: string[];
   id: string;
   setCurrentValue: (value: string) => void;
@@ -57,7 +57,7 @@ const SelectButton = ({
             }`}
             onClick={() => handleSelect('')}
           >
-            <span className="line-clamp-1">{defaultValue}</span>
+            {defaultValue && <span className="line-clamp-1">{defaultValue}</span>}
           </button>
           {listItems.map((item, index) => (
             <button

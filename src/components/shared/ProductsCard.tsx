@@ -3,20 +3,24 @@ import type { Product } from "../../types";
 import { useAuth } from "../../context/Auth.context";
 import { useLocation } from "react-router";
 import { useCart } from "../../hooks";
+import { useState } from "react";
+import ProductModal from "../dashboard/ProductModal";
 
 interface ProductsCardProps {
   product: Product;
-  handleDeleteProduct: (id: string) => Promise<void>;
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  handleDeleteProduct?: (id: string) => Promise<void>;
+  setProducts?: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 const ProductsCard = ({ product,handleDeleteProduct,setProducts }: ProductsCardProps) => {
   const { addItem } = useCart();
   const { state } = useAuth();
   const pathname = useLocation().pathname;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isCustomer = state.isAuth && state.user?.role === "customer";
   const isVendor = state.isAuth && state.user?.role === "vendor";
 
   const handleDelete = async (productId: string) => {
+    if (!handleDeleteProduct || !setProducts) return;
     await handleDeleteProduct(productId);
     setProducts((prevProducts) =>
       prevProducts.filter((p) => p.id !== productId)
@@ -27,7 +31,7 @@ const ProductsCard = ({ product,handleDeleteProduct,setProducts }: ProductsCardP
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-lg transition-all group">
       <div className="relative h-48 overflow-hidden bg-muted">
         <img
-          src={product.image}
+          src={product.image as string}
           alt={product.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
         />
@@ -68,7 +72,7 @@ const ProductsCard = ({ product,handleDeleteProduct,setProducts }: ProductsCardP
       </div>
       {isVendor&& pathname === "/vendor/dashboard" && (
         <div className="items-center p-6 pt-0 flex gap-2">
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
+          <button onClick={()=>{setIsModalOpen(true)}} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
             <SquarePen size={16} className="shrink-0 w-4 h-4" /> Edit
           </button>
           <button onClick={()=>{handleDelete(product.id!)}} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2">
@@ -76,6 +80,7 @@ const ProductsCard = ({ product,handleDeleteProduct,setProducts }: ProductsCardP
           </button>
         </div>
       )}
+      {isModalOpen && <ProductModal setIsModalOpen={setIsModalOpen} mode="edit" product={product} />}
     </div>
   );
 };

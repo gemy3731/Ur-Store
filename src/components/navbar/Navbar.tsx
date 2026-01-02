@@ -3,14 +3,14 @@ import ThemeToggle from "../ThemeToggle";
 import { NavLink, useLocation } from "react-router";
 import UserMenu from "./UserMenu";
 import { useAuth } from "../../context/Auth.context";
-import { useCart } from "../../hooks";
+// import { useCart } from "../../hooks";
 
 
 
 const Navbar = () => {
   const location = useLocation();
   const { state, signOut } = useAuth();
-  const { items } = useCart();
+  // const { items } = useCart();
 
   if (
     location.pathname.startsWith("/auth") ||
@@ -53,7 +53,7 @@ const isCustomer = state.isAuth && state.user?.role === 'customer';
           >
             <button type="button">
               <ShoppingCart size={24} />
-              {items && items.length > 0 && <div className="rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">{items.length}</div>}
+              {/* {items && items.length > 0 && <div className="rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">{items.length}</div>} */}
             </button>
           </NavLink>}
           <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-full">

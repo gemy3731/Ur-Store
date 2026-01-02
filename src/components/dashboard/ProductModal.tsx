@@ -1,20 +1,39 @@
 import { brands, categories } from "../../data";
+import {
+  useCreateProduct,
+  useProductFormState,
+  useUpdateProduct,
+} from "../../hooks";
+import type { Product } from "../../types";
 import { Button, Input, Label, Modal, Textarea } from "../ui";
 import SelectButton from "../ui/SelectButton";
-import { useCreateProductForm } from "../../hooks";
 
 interface ProductModalProps {
   setIsModalOpen: (isOpen: boolean) => void;
+  mode: "create" | "edit";
+  product?: Product;
 }
 
-const ProductModal = ({ setIsModalOpen }: ProductModalProps) => {
-  const {formik,setSelectedCategory,setSelectedBrand,selectedImage,handleImageChange} = useCreateProductForm(() => setIsModalOpen(false));
+const ProductModal = ({ setIsModalOpen, mode, product }: ProductModalProps) => {
+  const isEditMode = mode === "edit";
+
+  const submitCreate = useCreateProduct();
+  const submitUpdate = useUpdateProduct(product?.id || "");
+  const onSubmit = isEditMode ? submitUpdate : submitCreate;
+
+  const {
+    formik,
+    setSelectedCategory,
+    setSelectedBrand,
+    selectedImage,
+    handleImageChange,
+  } = useProductFormState(onSubmit, () => setIsModalOpen(false), product);
 
   return (
     <Modal setIsOpen={setIsModalOpen}>
       <div className="flex flex-col space-y-1.5 text-center sm:text-left">
         <h2 className="text-lg font-semibold leading-none tracking-tight">
-          Add New Product
+          {isEditMode ? "Edit Product" : "Add New Product"}
         </h2>
       </div>
       <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -34,6 +53,7 @@ const ProductModal = ({ setIsModalOpen }: ProductModalProps) => {
             <p className="text-sm text-red-500">{formik.errors.title}</p>
           )}
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="description">Description</Label>
           <Textarea
@@ -41,10 +61,11 @@ const ProductModal = ({ setIsModalOpen }: ProductModalProps) => {
             name="description"
             placeholder="Enter product description"
             rows={3}
-            value={formik.values.description}
+            value={formik.values.description || ""}
             onChange={formik.handleChange}
           ></Textarea>
         </div>
+
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="price">Price *</Label>
@@ -79,37 +100,46 @@ const ProductModal = ({ setIsModalOpen }: ProductModalProps) => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Category *</Label>
             <SelectButton
-              defaultValue="All Categories"
               id="category"
               listItems={categories}
-              setCurrentValue={setSelectedCategory}
+              setCurrentValue={(value) => {
+                setSelectedCategory(value);
+                formik.setFieldValue("category", value);
+              }}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="brand">Brand</Label>
             <SelectButton
-              defaultValue="All Brands"
               id="brand"
               listItems={brands}
-              setCurrentValue={setSelectedBrand}
+              setCurrentValue={(value) => {
+                setSelectedBrand(value);
+                formik.setFieldValue("brand", value);
+              }}
             />
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="image">Image *</Label>
+          <Label htmlFor="image">Image {isEditMode ? "(Leave empty to keep current)" : "*"}</Label>
           <Input
             type="file"
             id="image"
             placeholder="Upload product image"
             accept="image/*"
-            required
+            required={!isEditMode}
             onChange={handleImageChange}
             onBlur={formik.handleBlur}
           />
           {formik.touched.image && formik.errors.image && (
             <p className="text-sm text-red-500">{formik.errors.image}</p>
+          )}
+          {isEditMode && product?.image && typeof product.image === "string" && (
+            <p className="text-sm text-gray-500">
+              Current: {product.image.split('/').pop()}
+            </p>
           )}
         </div>
         <Button
@@ -117,11 +147,10 @@ const ProductModal = ({ setIsModalOpen }: ProductModalProps) => {
           disabled={
             formik.isSubmitting ||
             !formik.isValid ||
-            !formik.dirty ||
-            !selectedImage
+            (!isEditMode && (!formik.dirty || !selectedImage))
           }
         >
-          Create Product
+          {isEditMode ? "Update Product" : "Create Product"}
         </Button>
       </form>
     </Modal>

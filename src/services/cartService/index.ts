@@ -16,7 +16,7 @@ export async function getOrCreateOpenCart(userId: string) {
     const res = await createCartRepo(userId);
     return res.data;
   } catch (error) {
-    console.log(error)
+    console.log("error in getOrCreateOpenCart", error);
     throw error;
   }
 }
@@ -42,7 +42,6 @@ export async function addToCart(userId:string, productId:string, quantity = 1) {
   
   export async function getCartItems(cartId: string) {
     const { data, error } = await getCartItemsRepo(cartId);
-    console.log("data", data);
     if (error) throw error;
     return data;
   }

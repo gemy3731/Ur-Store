@@ -3,10 +3,7 @@ import type { Product } from "../../types";
 
   
   export async function getAllProducts() {
-    console.log("getAllProducts");
     const { data, error } = await getProductsRepo();
-    console.log("data", data);
-    console.log("error", error);
     if (error) throw new Error("Cannot fetch products");
     return data;
   }
@@ -18,8 +15,12 @@ import type { Product } from "../../types";
     return data;
   }
   
-  export async function updateProduct(id:string, product:object) {
-    const { data, error } = await updateProductRepo(id, product);
+  export async function updateProduct(id:string, product:Product) {
+    let imageUrl = product.image;
+  if (product.image && product.image instanceof File) {
+    imageUrl = await uploadProductImageRepo(product.image);
+  }
+    const { data, error } = await updateProductRepo(id, {...product, image: imageUrl });
     if (error) throw new Error("Cannot update product");
     return data;
   }

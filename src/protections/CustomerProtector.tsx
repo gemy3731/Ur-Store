@@ -7,7 +7,6 @@ interface CustomerProtectorProps {
 
 const CustomerProtector = ({children}: CustomerProtectorProps) => {
     const {state} = useAuth();
-    console.log(state);
     if(state.isAuth && state.user?.role === 'customer') {
         return children
     }else{

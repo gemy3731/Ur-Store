@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 const UserMenu = ({state,signOut}:{state:authTypes.AuthStateI;signOut:()=>Promise<void>}) => {
     const navigate = useNavigate();
   const handleSignIn = () => {
-    console.log("sign in");
+    // console.log("sign in");
     navigate("/auth");
   };
 
   const handleLogout = async () => {
-    console.log("Logout");
+    // console.log("Logout");
    await signOut();
   };
 

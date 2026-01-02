@@ -26,6 +26,7 @@ import toast from "react-hot-toast";
   }, [state.user?.id]);
 
   const addItem = async (productId:string, qty = 1) => {
+
     if (!cart) return;
     await addToCart(state.user?.id as string, productId, qty);
     const updated = await getCartItems(cart.id);

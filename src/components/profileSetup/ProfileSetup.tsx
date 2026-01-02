@@ -21,7 +21,7 @@ const ProfileSetupForm = () => {
     role: "customer",
   };
   const onSubmit = async (values: UserInfoI) => {
-    console.log(values);
+
     try{
       await setProfile(values);
       if(values.role === "customer"){

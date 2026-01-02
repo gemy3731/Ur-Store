@@ -7,7 +7,7 @@ import { useDebounce, useProducts } from "../../hooks";
 
 const ProductsCollection = () => {
   const products = useProducts();
-  console.log("products",products)
+  // console.log("products",products)
 
   const [productsState, setProductsState] = useState<Product[]>(products);
   const [selectedCategory, setSelectedCategory] = useState<string>("");

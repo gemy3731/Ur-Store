@@ -4,6 +4,7 @@ import { useCart } from "../../hooks";
 
 const OrderSummary = () => {
     const {items} = useCart();
+    // console.log("OrderSummary items");
     const totalCost = items?.reduce((acc, item) =>  acc += item.products.price * item.quantity,0);
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm">
