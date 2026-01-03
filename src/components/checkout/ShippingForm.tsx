@@ -1,11 +1,38 @@
-import type { authTypes } from "../../types"
-import { Button, Input, Label, Textarea } from "../ui"
+import { useState } from "react";
+import type { authTypes, CartItem } from "../../types"
+import { Button, Input, Label, Loader, Textarea } from "../ui"
+import toast from "react-hot-toast";
+import handleCheckout from "./handleCheckout";
 
+interface ShippingFormProps {
+  items:CartItem[] | null;
+  user:authTypes.UserInfoI|null;
+}
 
-
-const ShippingForm = ({user}:{user:authTypes.UserInfoI|null}) => {
+const ShippingForm = ({user,items}:ShippingFormProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const products = items?.map((item) => ({
+    name: item.products.title,
+    quantity: item.quantity,
+    price: item.products.price,
+    description: item.products.description,
+  }));
+  const handlePlaceOrder = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    setIsLoading(true);
+    try{
+     await handleCheckout(items,user,products);
+    }catch(err){
+      console.log(err);
+      toast.error((err as Error).message);
+    }finally{
+      setIsLoading(false);
+    }
+  }
   return (
-    <form className="space-y-4">
+    <>
+    {isLoading && <Loader />}
+    <form onSubmit={handlePlaceOrder} className="space-y-4">
           <div className="space-y-2">
             <Label
               htmlFor="name"
@@ -52,6 +79,7 @@ const ShippingForm = ({user}:{user:authTypes.UserInfoI|null}) => {
           </div>
           <Button>Place Order</Button>
         </form>
+        </>
   )
 }
 

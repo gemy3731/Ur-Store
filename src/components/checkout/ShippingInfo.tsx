@@ -1,8 +1,12 @@
+import { memo } from "react";
 import { useAuth } from "../../context/Auth.context";
+import type { CartItem } from "../../types";
 import ShippingForm from "./ShippingForm";
 
-
-const ShippingInfo = () => {
+interface ShippingInfoProps {
+  items:CartItem[] | null;
+}
+const ShippingInfo = memo(({ items }: ShippingInfoProps) => {
   const {state} = useAuth();
   return (
     <div className="rounded-lg border border-border bg-card text-card-foreground shadow-sm">
@@ -12,10 +16,10 @@ const ShippingInfo = () => {
         </h3>
       </div>
       <div className="p-6 pt-0">
-        <ShippingForm user={state.user} />
+        <ShippingForm user={state.user} items={items} />
       </div>
     </div>
   );
-};
+});
 
 export default ShippingInfo;
