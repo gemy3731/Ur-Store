@@ -21,6 +21,7 @@ const ShippingForm = ({user,items}:ShippingFormProps) => {
     e.preventDefault();
     setIsLoading(true);
     try{
+      // console.log("products",products);
      await handleCheckout(items,user,products);
     }catch(err){
       console.log(err);

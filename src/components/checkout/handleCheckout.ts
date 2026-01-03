@@ -17,6 +17,10 @@ const handleCheckout = async (
   if (!user) {
     throw new Error("User not logged in");
   }
+  if (!products || products.length === 0) {
+    throw new Error("No products to checkout");
+  }
+  console.log("products",products);
   const res = await fetch(`${baseUrl}/api/stripe`, {
     method: "POST",
     headers: {
