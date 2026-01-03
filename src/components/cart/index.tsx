@@ -7,7 +7,12 @@ const CartCollection = () => {
   const {items,addItem,deleteItem} = useCart();
   // console.log("CartCollection items");
   if (!items || items.length === 0) {
-    return null;
+    return <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8 text-foreground">Shopping Cart</h1>
+        <p className="text-foreground">Your cart is empty.</p>
+      </div>
+    </div>
   };
   return (
     <div className="min-h-screen bg-background">
