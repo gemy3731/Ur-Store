@@ -1,13 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { Home, Auth, Callback, ProfileSetup } from "./pages";
 import { AuthProvider, ThemeProvider } from "./providers";
 import { Toaster } from "react-hot-toast";
 
 import { Navbar } from "./components";
 import { CustomerProtector } from "./protections";
-import { CustomerContainer, VendorContainer } from "./containers";
-import SetupProtector from "./protections/SetupProtector";
 
+import SetupProtector from "./protections/SetupProtector";
+import { lazy } from "react";
+const Home = lazy(() => import("./pages/home"));
+const Auth = lazy(() => import("./pages/auth"));
+const Callback = lazy(() => import("./pages/callback"));
+const ProfileSetup = lazy(() => import("./pages/profile-setup"));
+const CustomerContainer = lazy(() => import("./containers/customerContainer/CustomerContainer"));
+const VendorContainer = lazy(() => import("./containers/vendorContainer/VendorContainer"));
 
 
 function App() {

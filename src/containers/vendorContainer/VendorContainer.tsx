@@ -1,6 +1,6 @@
-
 import { Route, Routes } from "react-router";
-import {  Dashboard } from "../../pages";
+import { lazy } from "react";
+const Dashboard = lazy(() => import("../../pages/dashboard"));
 
  const VendorContainer = () => {
   return (

@@ -1,6 +1,11 @@
 
 import { Route, Routes } from "react-router";
-import { Cart, Checkout, Home, Products } from "../../pages";
+
+import { lazy } from "react";
+const Home = lazy(() => import("../../pages/home"));
+const Cart = lazy(() => import("../../pages/cart"));
+const Checkout = lazy(() => import("../../pages/checkout"));
+const Products = lazy(() => import("../../pages/products"));
 
  const CustomerContainer = () => {
   return (

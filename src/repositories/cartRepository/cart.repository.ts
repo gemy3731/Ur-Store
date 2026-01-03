@@ -3,7 +3,7 @@ import { supabase } from "../../utils";
 
 type GetCartInput = Pick<Cart, "user_id" | "status">;
 export async function getCartRepo({ user_id, status }: GetCartInput) {
-  return await supabase.from("carts").select("*").eq("user_id", user_id).eq("status", status).single();
+  return await supabase.from("carts").select("*").eq("user_id", user_id).eq("status", status).maybeSingle();
 }
 
 

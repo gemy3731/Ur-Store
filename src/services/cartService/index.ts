@@ -9,7 +9,7 @@ export async function getOrCreateOpenCart(userId: string) {
 
     if (data) return data;
 
-    if (error && error.code !== "PGRST116") {
+    if (error) {
       throw error;
     }
 
