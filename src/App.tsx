@@ -8,6 +8,8 @@ import { CustomerProtector } from "./protections";
 import { CustomerContainer, VendorContainer } from "./containers";
 import SetupProtector from "./protections/SetupProtector";
 
+
+
 function App() {
   return (
     <BrowserRouter>

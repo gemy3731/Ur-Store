@@ -16,7 +16,7 @@ const CartItem =  ({ product, quantity, addItem,deleteItem }: CartItemProps) => 
         <div className="flex gap-4">
           <div className="w-24 h-24 rounded bg-muted overflow-hidden shrink-0">
             <img
-              src={product.image}
+              src={product.image as string}
               alt={product.title}
               className="w-full h-full object-cover"
             />

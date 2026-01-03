@@ -12,15 +12,13 @@ export interface UserInfoI {
     bio: string,
     address: string
 }
-export enum ActionType {
-    SetUser = "SET_USER",
-    // SetSession = "SET_SESSION",
-    SetLoading = "SET_LOADING",
-    ResetAuth = "RESET_AUTH",
-
-}
+export const ActionType = {
+    SetUser: "SET_USER",
+    SetLoading: "SET_LOADING",
+    ResetAuth: "RESET_AUTH",
+  } as const;
 export type AuthReducerAction =
-| { type: ActionType.SetUser; payload: {isAuth: boolean, user?: UserInfoI | null} | null }
-| { type: ActionType.SetLoading; payload: boolean }
-| { type: ActionType.ResetAuth };
+| { type: typeof ActionType.SetUser; payload: {isAuth: boolean, user?: UserInfoI | null} | null }
+| { type: typeof ActionType.SetLoading; payload: boolean }
+| { type: typeof ActionType.ResetAuth };
 
