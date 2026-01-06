@@ -1,21 +1,21 @@
-import { Navigate } from "react-router";
+import { Loader } from "lucide-react";
 import { useAuth } from "../context/Auth.context";
-import { Loader } from "../components";
+import { Navigate } from "react-router-dom";
 
 interface CustomerProtectorProps {
     children: React.ReactNode;
 }
 
-const CustomerProtector = ({children}: CustomerProtectorProps) => {
+const VendorProtector = ({children}: CustomerProtectorProps) => {
     const {state} = useAuth();
     if(state.loading) {
         return <Loader />;
     }
-    if(state.isAuth && state.user?.role === 'customer') {
+    if(state.isAuth && state.user?.role === 'vendor') {
         return children
     }else{
        return <Navigate to={'/'} replace />
     }
 }
 
-export default CustomerProtector
+export default VendorProtector

@@ -3,9 +3,9 @@ import { AuthProvider, ThemeProvider } from "./providers";
 import { Toaster } from "react-hot-toast";
 
 import { Navbar } from "./components";
-import { CustomerProtector } from "./protections";
+import { CustomerProtector, SetupProtector, VendorProtector } from "./protections";
 
-import SetupProtector from "./protections/SetupProtector";
+
 import { lazy } from "react";
 const Home = lazy(() => import("./pages/home"));
 const Auth = lazy(() => import("./pages/auth"));
@@ -24,7 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/customer/*" element={ <CustomerProtector><CustomerContainer /></CustomerProtector>}/>
-            <Route path="/vendor/*" element={ <VendorContainer />}/>
+            <Route path="/vendor/*" element={<VendorProtector><VendorContainer /></VendorProtector>}/>
             <Route path="/auth" element={<Auth />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/profile-setup" element={<SetupProtector><ProfileSetup /></SetupProtector>}/>

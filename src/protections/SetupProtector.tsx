@@ -13,7 +13,7 @@ const SetupProtector = ({children}: SetupProtectorProps) => {
     if(state.isAuth && !state.user?.username){
         return children;
     }else{
-        return <Navigate to={'/home'} replace />;
+        return <Navigate to={'/'} replace />;
     }
 }
 

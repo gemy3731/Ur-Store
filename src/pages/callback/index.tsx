@@ -20,7 +20,9 @@ const Callback = () => {
     // eslint-disable-next-line
   },[])
   return (
+    <div className="min-h-screen bg-background">
     <Loader />
+    </div>
   )
 }
 

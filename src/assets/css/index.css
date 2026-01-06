@@ -10,7 +10,7 @@ button {
 
 
 .loader {
-  color: #ffffff;
+  color: var(--color-foreground);
   font-size: 80px;
   /* text-indent: -9999em; */
   overflow: hidden;
