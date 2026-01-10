@@ -179,6 +179,8 @@ Throughout the project, special attention was given to:
 <img width="1422" alt="Screen Shot 2022-12-23 at 8 54 53 PM" src="https://vswzdnrhezclcgtqbhbz.supabase.co/storage/v1/object/public/products/products.PNG">
 **Cart**
 <img width="1422" alt="Screen Shot 2022-12-23 at 8 54 53 PM" src="https://vswzdnrhezclcgtqbhbz.supabase.co/storage/v1/object/public/products/cart.PNG">
+**Supabase Schema**
+<img width="1422" alt="Screen Shot 2022-12-23 at 8 54 53 PM" src="https://vswzdnrhezclcgtqbhbz.supabase.co/storage/v1/object/public/products/schema.PNG">
 ---
 ## 🙌 Final Notes
 
